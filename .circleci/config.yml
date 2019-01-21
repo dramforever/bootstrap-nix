@@ -22,7 +22,7 @@ jobs:
       - run:
           name: Build everything
           command: |
-            ./build.sh
+            ./build.sh -j 2 --cores 2
 
       - store_artifacts:
           path: nix-stdenv-installer.tar.xz
