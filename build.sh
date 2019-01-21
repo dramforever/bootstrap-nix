@@ -6,11 +6,11 @@ set -x
 nix-build "$@" -A nixBoot -o nix-stage-1
 set +x
 
-mkdir -p "$bootDir/etc/nix"
-if ! [ -f "$bootDir/etc/nix/nix.conf" ]
+mkdir -p "/tmp/nix/etc/nix"
+if ! [ -f "/tmp/nix/etc/nix/nix.conf" ]
 then
   set -x
-  cat > "$bootDir/etc/nix/nix.conf" <<END
+  cat > "/tmp/nix/etc/nix/nix.conf" <<END
 build-users-group =
 sandbox = false
 END
