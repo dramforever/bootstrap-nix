@@ -85,7 +85,15 @@ in rec {
     name = "nix-stdenv";
     inherit nixBoot;
     closure = closureInfo {
-      rootPaths = [ nixBoot stdenv curl ];
+      rootPaths =
+        let
+          stdenvStages = curStage:
+            [ curStage ]
+              ++
+                (if ! curStage.__bootPackages.__raw or false
+                  then stdenvStages curStage.__bootPackages.stdenv
+                  else []);
+        in [ nixBoot ] ++ stdenvStages stdenv;
     };
   };
 }
