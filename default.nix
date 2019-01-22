@@ -38,11 +38,13 @@ let
         "$nix/bin/nix-store" --init
         "$nix/bin/nix-store" --load-db < "$self/reginfo"
 
-        echo "Default configuration..." > &2
+        echo "Default configuration..." >&2
 
+        mkdir -p $bootDir/etc/nix/
         cat > $bootDir/etc/nix/nix.conf <<END
         build-users-group =
         sandbox = false
+        require-sigs = false
         END
 
         echo "Nix is installed at $nix/bin" >&2
@@ -83,7 +85,7 @@ in rec {
     name = "nix-stdenv";
     inherit nixBoot;
     closure = closureInfo {
-      rootPaths = [ nixBoot stdenv stdenvNoCC ];
+      rootPaths = [ nixBoot stdenv curl ];
     };
   };
 }
