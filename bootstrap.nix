@@ -18,7 +18,7 @@ in rec {
     name = "nix";
     inherit nixBoot;
     closure = closureInfo {
-      rootPaths = [ nixBoot ];
+      rootPaths = nixBoot.all;
     };
   };
 
@@ -34,7 +34,7 @@ in rec {
                 (if ! curStage.__bootPackages.__raw or false
                   then stdenvStages curStage.__bootPackages.stdenv
                   else []);
-        in [ nixBoot ] ++ stdenvStages stdenv;
+        in nixBoot.all ++ stdenvStages stdenv;
     };
   };
 }
