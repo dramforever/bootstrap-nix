@@ -2,13 +2,6 @@
 
 set -eo pipefail
 
-if ! [ -d nixpkgs ]
-then
-  echo "Nixpkgs required to build" >&2
-  echo "Get a revision of nixpkgs before building" >&2
-  exit 1
-fi
-
 mkdir -p build
 
 set -x
