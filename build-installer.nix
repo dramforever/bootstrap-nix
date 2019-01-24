@@ -40,10 +40,10 @@ let
       echo "Default configuration..." >&2
 
       cat > $bootDir/etc/nix/nix.conf <<END
-      build-users-group =
-      sandbox = false
-      require-sigs = false
-      END
+    build-users-group =
+    sandbox = false
+    require-sigs = false
+    END
     fi
 
     echo "Nix is installed at $nix/bin" >&2
