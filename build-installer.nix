@@ -34,14 +34,17 @@ let
     "$nix/bin/nix-store" --init
     "$nix/bin/nix-store" --load-db < "$self/reginfo"
 
-    echo "Default configuration..." >&2
-
     mkdir -p $bootDir/etc/nix/
-    cat > $bootDir/etc/nix/nix.conf <<END
-    build-users-group =
-    sandbox = false
-    require-sigs = false
-    END
+    if ! [ -f $bootDir/etc/nix/nix.conf ]
+    then
+      echo "Default configuration..." >&2
+
+      cat > $bootDir/etc/nix/nix.conf <<END
+      build-users-group =
+      sandbox = false
+      require-sigs = false
+      END
+    fi
 
     echo "Nix is installed at $nix/bin" >&2
   '';
