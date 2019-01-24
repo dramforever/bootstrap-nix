@@ -7,6 +7,7 @@ let
     inherit nixBoot bootDir writeText runCommand;
   };
 
+  installed = drv: map (outName: drv.${outName}) drv.meta.outputsToInstall
 in rec {
   nixBoot = nix.override {
     storeDir = "${bootDir}/store";
@@ -18,7 +19,7 @@ in rec {
     name = "nix";
     inherit nixBoot;
     closure = closureInfo {
-      rootPaths = nixBoot.all;
+      rootPaths = installed nixBoot;
     };
   };
 
